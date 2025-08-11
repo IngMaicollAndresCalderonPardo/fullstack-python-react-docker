@@ -1,4 +1,4 @@
-🚀 Fullstack App - Finanzauto
+🚀 Fullstack App - Test
 
 Aplicación Fullstack desarrollada como parte de la prueba técnica para **Finanzauto**.  
 Permite a los usuarios **registrarse, autenticarse, actualizar su perfil y gestionar publicaciones**.  
