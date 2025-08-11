@@ -1,0 +1,129 @@
+.posts-container {
+  min-height: 100vh;
+  background-color: #f7fafc;
+  display: flex;
+  justify-content: center;
+}
+
+.posts-wrapper {
+  width: 100%;
+  max-width: 900px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow-x: auto; /* Para scroll horizontal si se necesita */
+}
+
+.posts-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2d3748;
+}
+
+.posts-search {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.posts-search:focus {
+  border-color: #3182ce;
+}
+
+.posts-no-results {
+  text-align: center;
+  color: #718096;
+}
+
+.posts-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Para que no se achique demasiado */
+}
+
+.posts-table thead tr {
+  background-color: #edf2f7;
+}
+
+.posts-table th {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.posts-table td {
+  padding: 12px;
+  max-width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.posts-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s;
+}
+
+.posts-table tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+.posts-table td.actions-cell {
+  text-align: center;
+  max-width: 120px;
+  white-space: normal; /* para que el botón pueda envolver texto si es necesario */
+}
+
+.btn-delete {
+  background-color: #e53e3e;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(229, 62, 62, 0.4);
+  transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+  background-color: #c53030;
+}
+
+/* Estilos para botón "Ver más" */
+.btn-ver-mas {
+  margin-left: 8px;
+  padding: 4px 10px;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ver-mas:hover {
+  background-color: #2c5282;
+}
+
+/* Responsive: en pantallas menores a 600px, ajustamos la tabla para que se pueda scrollear */
+@media (max-width: 600px) {
+  .posts-wrapper {
+    padding: 10px;
+  }
+  .posts-table {
+    min-width: 500px;
+  }
+}

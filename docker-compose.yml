@@ -1,0 +1,54 @@
+# docker-compose.yml
+services:
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - appnet
+
+  users:
+    build: ./backend/users
+    container_name: users_service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/users:/app
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - db
+    networks:
+      - appnet
+
+  posts:
+    build: ./backend/posts
+    container_name: posts_service
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend/posts:/app
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${POSTS_DATABASE_URL}
+      - DATABASE_URL_SYNC=${POSTS_DATABASE_URL_SYNC}
+    depends_on:
+      - db
+      - users
+    networks:
+      - appnet
+
+volumes:
+  postgres_data:
+
+networks:
+  appnet:

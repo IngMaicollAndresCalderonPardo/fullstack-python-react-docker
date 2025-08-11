@@ -1,0 +1,64 @@
+.create-post-container {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-post-card {
+  max-width: 1000px;
+  width: 100%;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+
+.create-post-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c; /* gris oscuro */
+}
+
+.create-post-form .form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.create-post-form .form-control:focus {
+  border-color: #3182ce; /* azul */
+  outline: none;
+  box-shadow: 0 0 6px rgba(49, 130, 206, 0.5);
+}
+
+.create-post-error {
+  color: #e53e3e; /* rojo */
+  font-size: 0.875rem;
+  margin-top: -0.25rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.create-post-button {
+  width: 100%;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0ea5a4, #06b6d4);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-button:hover {
+  background: linear-gradient(90deg, #059fa3, #0388a9);
+}
