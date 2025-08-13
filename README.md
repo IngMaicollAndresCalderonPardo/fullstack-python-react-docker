@@ -1,6 +1,6 @@
 🚀 Fullstack App - Test
 
-Aplicación Fullstack desarrollada como parte de la prueba técnica para **Finanzauto**.  
+Aplicación Fullstack desarrollada como parte de una prueba técnica.  
 Permite a los usuarios **registrarse, autenticarse, actualizar su perfil y gestionar publicaciones**.  
 
 El proyecto está dividido en dos microservicios:
@@ -15,20 +15,22 @@ Todo está contenerizado con **Docker Compose**.
 
 📌 Requerimientos Previos
 Asegúrate de tener instalado:
-- Docker
-- Docker Compose
-- Git
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Git](https://git-scm.com/)
 
 ---
 
-📂 Estructura del Proyecto
-
+## 📂 Estructura del proyecto
+```txt
 fullstack-app/
-│── users/               # Microservicio de usuarios
-│── posts/               # Microservicio de publicaciones
-│── frontend/            # Frontend React
-│── docker-compose.yml   # Orquestación de servicios
-│── README.md
+├─ backend/
+│  ├─ users/                 # Microservicio de usuarios
+│  ├─ posts/                 # Microservicio de publicaciones
+├─ frontend/                 # Frontend React (Vite)
+├─ docker-compose.yml        # Orquestación de servicios
+└─ README.md
+```
 
 ---
 
@@ -41,11 +43,11 @@ cd fullstack-app
 2️⃣ Construir e iniciar todos los servicios:
 docker-compose up --build
 
-Esto levantará:
-- **Users Service** → http://localhost:8000
-- **Posts Service** → http://localhost:8001
-- **Frontend** → http://localhost:5173 (o el puerto que use Vite)
-- **PostgreSQL** → puerto 5432
+Esto iniciará:
+- **Users API** → [http://localhost:8000](http://localhost:8000)  
+- **Posts API** → [http://localhost:8001](http://localhost:8001)  
+- **Frontend** → [http://localhost:5173](http://localhost:5173) (o el puerto que use Vite)  
+- **PostgreSQL** → puerto `5432`
 
 ---
 
@@ -54,17 +56,34 @@ Esto levantará:
 Cuando levantas por primera vez, debes correr las migraciones en **cada microservicio**.
 
 🔹 Users Service
-docker exec -it users_service bash
-alembic upgrade head
+```bash
+docker exec -it users_service bash -lc "alembic upgrade head"
 exit
+```
 
 🔹 Posts Service
-docker exec -it posts_service bash
-alembic upgrade head
+```bash
+docker exec -it posts_service bash -lc "alembic upgrade head"
 exit
+```
 
+> Si te aparece “alembic: command not found”, prueba:
+> ```bash
+> docker exec -it users_service bash -lc "python -m alembic upgrade head"
+> docker exec -it posts_service bash -lc "python -m alembic upgrade head"
+> ``
 ---
 
+## 💻 Frontend (manual, fuera de Docker)
+Si prefieres ejecutar el frontend localmente:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Abrir en: **http://localhost:5173**
+
+---
 🔄 Regenerar la Base de Datos (si se borran volúmenes)
 
 Si ejecutas:
@@ -122,16 +141,44 @@ npm run dev
 - Ambos microservicios usan la misma base de datos PostgreSQL (en este caso un contenedor `postgres_db`).
 
 ---
+## 🛠 Comandos útiles
 
-📝 Notas Finales
-- Si cambias el modelo de datos, recuerda:
-# Dentro del microservicio correspondiente
+```bash
+# Ver puertos expuestos
+docker compose ps
+
+# Inspeccionar logs
+docker compose logs -f users_service
+docker compose logs -f posts_service
+docker compose logs -f db
+
+# Detener y eliminar contenedores
+docker compose down
+
+# Limpiar caché de imágenes y volúmenes
+docker system prune -af
+docker volume prune -f
+```
+
+---
+## 🧪 Migraciones nuevas (cuando cambias el modelo)
+Dentro del microservicio correspondiente:
+```bash
 alembic revision --autogenerate -m "descripcion del cambio"
 alembic upgrade head
+```
+---
 
-- Si quieres entrar a PostgreSQL manualmente:
+## 🐘 Acceso manual a PostgreSQL
+```bash
 docker exec -it postgres_db psql -U postgres -d postgres
+```
+*(Cambia `postgres_db` por el nombre real del contenedor si difiere: `docker compose ps`)*
 
+---
+📝 Notas Finales
+- El mensaje `invalid length of startup packet` en Postgres es normal si un cliente intenta conectarse con protocolo equivocado (por ejemplo, un healthcheck HTTP al puerto 5432).  
+Si quieres silenciar ese mensaje, usa un healthcheck nativo con `pg_isready` en `docker-compose.yml`.
 ---
 
 👨‍💻 Desarrollado por: MAICOLL CALDERON PARDO
